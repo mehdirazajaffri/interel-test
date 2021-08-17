@@ -48,9 +48,5 @@ services:
       - redis
       - app
   notification:
-    image: node:16-alpine
-    volumes:
-      - ./notification-server/:/usr/app/
-    command: npm start
-    ports:
-      - "3000:3000"
+    build:
+      context: notification-server
