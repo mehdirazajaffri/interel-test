@@ -1,6 +1,13 @@
+import json
+import operator
+from datetime import timedelta, datetime
+
+from django.core import serializers
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+from api.redis import publish
 
 
 class BaseModel(models.Model):
@@ -24,6 +31,19 @@ class Device(BaseModel):
     )
     reading = models.ManyToManyField("Reading", related_name="device", blank=True)
 
+    @classmethod
+    def get_stats(cls, date_from, date_to):
+        device_readings = cls.objects.filter(reading__updated_at__gte=date_from,
+                                             reading__updated_at__lte=date_to).distinct()
+        temp = {}
+        for i in device_readings:
+            temp[i.name] = (i.reading.count())
+
+        return {
+            "maximum_readings": max(temp.items(), key=operator.itemgetter(1)) or None,
+            "minimum_readings": min(temp.items(), key=operator.itemgetter(1)) or None
+        }
+
     def __str__(self) -> str:
         return "{} -> {}".format(self.id, self.device_type.type)
 
@@ -46,11 +66,8 @@ class Reading(BaseModel):
 @receiver(post_save, sender=Device)
 def publish_device_info(sender, instance, created, **kwargs):
     if created:
-        print(instance)
-        # send_email.delay(
-        #     {
-        #         "to": "gc@oj-lifestyle.com,mr@berkeley-assets.com",
-        #         "subject": "{} requested for a benefit".format(instance.partner.name),
-        #         "html_body": render_to_string('benefit_add_request.html', context)
-        #     }
-        # )
+        serialized_obj = serializers.serialize('json', [instance, ])
+        print(serialized_obj)
+        publish("devices", serialized_obj)
+        # publish("stats", json.dumps(sender.get_stats(datetime.utcnow().date() - timedelta(days=7),
+        #                                              datetime.utcnow().date() + timedelta(days=1))))
