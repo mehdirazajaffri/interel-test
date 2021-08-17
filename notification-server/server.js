@@ -1,7 +1,7 @@
 const WebSocket = require("ws");
 const redis = require("redis");
 
-const REDIS_SERVER = "redis://localhost:6379";
+const REDIS_SERVER = "redis://redis:6379";
 const WEB_SOCKET_PORT = 3000;
 
 var redisClient = redis.createClient(REDIS_SERVER);

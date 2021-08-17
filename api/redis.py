@@ -1,6 +1,6 @@
 import redis
 
-r = redis.Redis(host='localhost', port=6379, db=1)
+r = redis.Redis(host='redis', port=6379, db=1)
 
 
 def publish(channel="devices", data=""):

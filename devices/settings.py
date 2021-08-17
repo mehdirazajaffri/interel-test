@@ -76,13 +76,14 @@ WSGI_APPLICATION = 'devices.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'devices',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'HOST': os.environ.get('DB_HOST'),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASS'),
         'PORT': '5432',
     }
 }
@@ -148,9 +149,8 @@ CELERY_SEND_EVENTS = False
 
 CELERY_ENABLE_UTC = True
 CELERY_DISABLE_RATE_LIMITS = True
-BROKER_URL = 'redis://localhost:6379/0'
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-
+CELERY_BROKER_URL = "redis://redis:6379"
+CELERY_RESULT_BACKEND = "redis://redis:6379"
 CELERY_BEAT_SCHEDULE = {
     'every-10-seconds': {
         'task': 'api.tasks.read_temperature',
