@@ -1,10 +1,10 @@
 # IOT Devices Real Time Notification Services
 
-<img alt="Django Version" src="https://img.shields.io/badge/django-3.2-green">
-<img alt="djangorest" src="https://img.shields.io/badge/djangorestframework-0">
-<img alt="django-signal" src="https://img.shields.io/badge/djangosignal-blue">
-<img alt="node" src="https://img.shields.io/node/v/npm?color=blue&label=node&logo=nodejs&logoColor=green"/>
-<img alt="redis" src="https://img.shields.io/badge/redis-green">
+<a><img alt="Django Version" src="https://img.shields.io/badge/django-3.2-green"></a>
+<a><img alt="djangorest" src="https://img.shields.io/badge/djangorestframework-0"></a>
+<a><img alt="django-signal" src="https://img.shields.io/badge/djangosignal-blue"></a>
+<a><img alt="node" src="https://img.shields.io/node/v/npm?color=blue&label=node&logo=nodejs&logoColor=green"/></a>
+<a><img alt="redis" src="https://img.shields.io/badge/redis-green"></a>
 
 ## Tech Stack
 - [django](https://djangoproject.com/), [djangorestframework](https://djangorestframework.com/),
