@@ -17,4 +17,3 @@ server.on("connection", function connection(ws) {
 });
 
 console.log("WebSocket server started at ws://locahost:" + WEB_SOCKET_PORT);
-

@@ -7,6 +7,7 @@ from .views import DashboardView
 router = routers.DefaultRouter()
 router.register(r"devices", views.DeviceViewSet, basename="Device")
 router.register(r"readings", views.ReadingViewSet, basename="Reading")
+router.register(r"device-types", views.DeviceTypeViewSet, basename="DeviceTypes")
 
 urlpatterns = [
     path("", include(router.urls)),

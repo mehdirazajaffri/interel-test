@@ -9,3 +9,4 @@ psycopg2
 redis
 autopep8
 black
+drf-yasg

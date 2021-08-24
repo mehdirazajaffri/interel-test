@@ -7,6 +7,10 @@ admin.site.register(DeviceType)
 admin.site.register(Reading)
 
 
+admin.site.site_title = "Iot Devices"
+admin.site.site_header = "Iot Devices"
+admin.site.site_title = "Iot Devices"
+
 class ReadingInline(admin.TabularInline):
     model = Device.reading.through
     extra = 0

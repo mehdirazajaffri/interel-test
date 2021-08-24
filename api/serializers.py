@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from .models import Device, Reading, DeviceType
 
 
@@ -16,12 +15,12 @@ class ReadingSerializer(serializers.ModelSerializer):
 
 
 class DeviceSerializer(serializers.ModelSerializer):
-    reading = ReadingSerializer(many=True)
-    device_type = DeviceTypeSerializer()
-
+    device_type = serializers.PrimaryKeyRelatedField(queryset=DeviceType.objects.all())
+    reading = ReadingSerializer(many=True, read_only=True)
     class Meta:
         model = Device
-        fields = "__all__"
+        fields = ["id","name","device_type","reading"]
+        extra_kwargs = {'reading': {'required': False}}
 
 
 class DeviceReadOnlySerializer(serializers.ModelSerializer):

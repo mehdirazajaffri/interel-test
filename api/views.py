@@ -7,14 +7,18 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
 
-from api.models import Device, Reading
-from api.serializers import DeviceSerializer, ReadingDevicesSerializer
+from api.models import Device, DeviceType, Reading
+from api.serializers import DeviceSerializer, DeviceTypeSerializer, ReadingDevicesSerializer
 
 
 class DeviceViewSet(viewsets.ModelViewSet):
     queryset = Device.objects.all().order_by("-updated_at")
     serializer_class = DeviceSerializer
 
+
+class DeviceTypeViewSet(viewsets.ModelViewSet):
+    queryset = DeviceType.objects.all().order_by("-updated_at")
+    serializer_class = DeviceTypeSerializer
 
 class ReadingViewSet(viewsets.ModelViewSet):
     queryset = Reading.objects.all().order_by("-updated_at")

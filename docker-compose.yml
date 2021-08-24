@@ -11,12 +11,16 @@ services:
     command: >
       sh -c "python3 manage.py collectstatic --no-input &&
              python3 manage.py migrate &&
+             python3 manage.py createsuperuser --noinput &&
              python3 manage.py runserver 0.0.0.0:8000"
     environment:
       - DB_HOST=db
       - DB_NAME=app
       - DB_USER=postgres
       - DB_PASS=supersecretpassword
+      - DJANGO_SUPERUSER_EMAIL=admin@admin.com
+      - DJANGO_SUPERUSER_PASSWORD=admin123
+      - DJANGO_SUPERUSER_USERNAME=admin
     depends_on:
       - db
   db:
@@ -50,3 +54,5 @@ services:
   notification:
     build:
       context: notification-server
+    ports: 
+      - "3000:3000"
